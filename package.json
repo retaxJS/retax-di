@@ -1,0 +1,52 @@
+{
+  "name": "retax-di",
+  "version": "0.0.0",
+  "description": "Dependency injection for retax",
+  "main": "lib/index.js",
+  "jsnext:main": "es/index.js",
+  "typings": "libTs/index.d.ts",
+  "scripts": {
+    "build": "builder run build",
+    "lint": "builder run lint",
+    "prepublish": "npm test && builder run build",
+    "pretest": "npm run typings && builder run lint",
+    "preversion": "npm test && builder run build",
+    "start": "builder run build:commonjs:watch",
+    "tdd": "builder run test:all:watch",
+    "test:once": "builder run test:all",
+    "test": "builder run test:all:coverage",
+    "typings": "builder run typings:install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/retaxJS/retax-di"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "framework",
+    "universal",
+    "retax",
+    "di"
+  ],
+  "author": "Thomas Hourlier <thomas.hourlier@cnode.fr>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/retaxJS/retax-di/issues"
+  },
+  "homepage": "https://github.com/retaxJS/retax-di",
+  "dependencies": {
+    "builder-ts-library": "~0.0.6",
+    "inversify": "^2.0.0-beta.1",
+    "retax-core": "^1.0.0-alpha.1",
+    "retax-utils": "^1.0.0-alpha.1"
+  },
+  "devDependencies": {
+    "builder": "^2.9.1",
+    "builder-ts-library-dev": "~0.0.6"
+  },
+  "peerDependencies": {
+    "retax-core": "^1.0.0-alpha.1",
+    "retax-utils": "^1.0.0-alpha.1"
+  }
+}
