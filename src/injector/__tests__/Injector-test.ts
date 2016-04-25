@@ -81,4 +81,17 @@ describe('Injector', () => {
     const service = kernel.get<Service>(serviceId);
     expect(service).toEqual(undefined);
   });
+
+  it('registers a empty array of services', () => {
+    const kernel = new Kernel();
+    const injector = new Injector();
+
+    const serviceId = injector.registerService([]);
+    const [firstModule] = injector.userModules;
+
+    kernel.load(firstModule.kernelModuleLoader);
+
+    const service = kernel.get<Service>(serviceId);
+    expect(service).toEqual(undefined);
+  });
 });

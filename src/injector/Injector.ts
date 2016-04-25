@@ -53,7 +53,7 @@ export default class Injector implements IInjector {
 
   private _createKernelModuleLoader(id: Symbol, Services: IUserServiceConstructor|IUserServiceConstructor[]): IKernelModule {
     return kernel => {
-      if (!Services) { // we need to bind something for id.
+      if (!Services || (Services instanceof Array && Services.length === 0)) { // we need to bind something for id.
         kernel.bind<IUserService>(id).toValue(undefined);
       } else if (!(Services instanceof Array)) {
         kernel.bind<IUserService>(id).to(Services);
