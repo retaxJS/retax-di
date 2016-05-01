@@ -37,8 +37,8 @@
   "homepage": "https://github.com/retaxJS/retax-di",
   "dependencies": {
     "builder-ts-library": "~0.0.6",
-    "inversify": "^2.0.0-beta.1",
-    "retax-core": "^1.0.0-alpha.1",
+    "inversify": "^2.0.0-beta.2",
+    "retax-core": "^1.0.0-alpha.2",
     "retax-utils": "^1.0.0-alpha.1"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "builder-ts-library-dev": "~0.0.6"
   },
   "peerDependencies": {
-    "retax-core": "^1.0.0-alpha.1",
+    "retax-core": "^1.0.0-alpha.2",
     "retax-utils": "^1.0.0-alpha.1"
   }
 }

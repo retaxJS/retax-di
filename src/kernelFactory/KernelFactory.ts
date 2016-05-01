@@ -1,4 +1,4 @@
-import { injectable, inject, IKernelModule, IFactory } from 'inversify';
+import { injectable, inject, IKernelModule } from 'inversify';
 import { IInversifyKernelFacade } from 'retax-core';
 
 import { IKernelFactory } from './interfaces';
@@ -10,7 +10,7 @@ import {  INVERSIFY_KERNEL_FACADE_FACTORY } from '../inversify/identifiers';
 @injectable()
 export default class KernelFactory implements IKernelFactory {
   constructor(
-    @inject(INVERSIFY_KERNEL_FACADE_FACTORY) private _kernelFactory: IFactory<IInversifyKernelFacade>
+    @inject(INVERSIFY_KERNEL_FACADE_FACTORY) private _kernelFactory: () => IInversifyKernelFacade
   ) {}
 
   /**
