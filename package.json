@@ -38,15 +38,15 @@
   "dependencies": {
     "builder-ts-library": "~0.0.6",
     "inversify": "^2.0.0-beta.2",
-    "retax-core": "^1.1.0-alpha.0",
-    "retax-utils": "^1.0.0-alpha.1"
+    "retax-core": "^1.1.0",
+    "retax-utils": "^1.0.0"
   },
   "devDependencies": {
     "builder": "^2.9.1",
     "builder-ts-library-dev": "~0.0.6"
   },
   "peerDependencies": {
-    "retax-core": "^1.1.0-alpha.0",
-    "retax-utils": "^1.0.0-alpha.1"
+    "retax-core": "^1.1.0",
+    "retax-utils": "^1.0.0"
   }
 }
