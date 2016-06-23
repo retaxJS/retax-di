@@ -1,11 +1,10 @@
-import { IKernelModule } from 'inversify';
+import { interfaces } from 'inversify';
 
 import { IUserServiceConstructor } from 'retax-core';
 
 export interface IUserModule {
   serviceId: Symbol;
-  kernelModuleLoader: IKernelModule;
-  kernelModuleUnloader: IKernelModule;
+  kernelModule: interfaces.KernelModule;
 }
 
 export interface IInjector {

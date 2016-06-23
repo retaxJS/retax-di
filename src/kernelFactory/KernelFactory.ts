@@ -1,4 +1,4 @@
-import { injectable, inject, IKernelModule } from 'inversify';
+import { injectable, inject, interfaces } from 'inversify';
 import { IInversifyKernelFacade } from 'retax-core';
 
 import { IKernelFactory } from './interfaces';
@@ -17,7 +17,7 @@ export default class KernelFactory implements IKernelFactory {
    * Create a new IoC container.
    * All user registered module will be included
    */
-  public create(modules: IKernelModule[], userModules: IUserModule[]): IInversifyKernelFacade {
+  public create(modules: interfaces.KernelModule[], userModules: IUserModule[]): IInversifyKernelFacade {
     const kernelFacade = this._kernelFactory();
 
     kernelFacade.loadKernelModules(modules);

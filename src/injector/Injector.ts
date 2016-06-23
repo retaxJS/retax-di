@@ -1,4 +1,4 @@
-import { IKernelModule, injectable } from 'inversify';
+import { injectable, KernelModule, interfaces } from 'inversify';
 
 import { IInjector, IUserModule } from './interfaces';
 
@@ -31,9 +31,8 @@ export default class Injector implements IInjector {
       serviceId = Symbol(`UserService - ${name || generateRandomId()}`);
     }
 
-    const kernelModuleLoader = this._createKernelModuleLoader(serviceId, Services);
-    const kernelModuleUnloader = this._createKernelModuleUnloader(serviceId);
-    this._setUserModule(Services, serviceId, kernelModuleLoader, kernelModuleUnloader);
+    const kernelModule = this._createKernelModuleLoader(serviceId, Services);
+    this._setUserModule(Services, serviceId, kernelModule);
 
     return serviceId;
   }
@@ -41,33 +40,26 @@ export default class Injector implements IInjector {
   private _setUserModule(
     key: IUserServiceConstructor|IUserServiceConstructor[],
     serviceId: Symbol,
-    kernelModuleLoader: IKernelModule,
-    kernelModuleUnloader: IKernelModule
+    kernelModule: interfaces.KernelModule
   ): void {
     if (this._userModules.has(key)) {
       throw new Error(`Duplicate module for key ${key.toString()} of id ${serviceId}`);
     }
 
-    this._userModules.set(key, { serviceId, kernelModuleLoader, kernelModuleUnloader });
+    this._userModules.set(key, { serviceId, kernelModule });
   }
 
-  private _createKernelModuleLoader(id: Symbol, Services: IUserServiceConstructor|IUserServiceConstructor[]): IKernelModule {
-    return kernel => {
+  private _createKernelModuleLoader(id: Symbol, Services: IUserServiceConstructor|IUserServiceConstructor[]): interfaces.KernelModule {
+    return new KernelModule((bind: interfaces.Bind) => {
       if (!Services || (Services instanceof Array && Services.length === 0)) { // we need to bind something for id.
-        kernel.bind<IUserService>(id).toConstantValue(undefined);
+        bind<IUserService>(id).toConstantValue(undefined);
       } else if (!(Services instanceof Array)) {
-        kernel.bind<IUserService>(id).to(Services);
+        bind<IUserService>(id).to(Services);
       } else {
         Services.forEach(Service => {
-          kernel.bind<IUserService>(id).to(Service);
+          bind<IUserService>(id).to(Service);
         });
       }
-    };
-  }
-
-  private _createKernelModuleUnloader(id: Symbol): IKernelModule {
-    return kernel => {
-      kernel.unbind(id);
-    };
+    });
   }
 }

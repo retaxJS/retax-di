@@ -1,4 +1,4 @@
-import { injectable, inject, IKernelModule } from 'inversify';
+import { injectable, inject, interfaces } from 'inversify';
 import { IInversifyKernelFacade } from 'retax-core';
 
 import { IKernelMediator } from './interfaces';
@@ -18,7 +18,7 @@ export default class KernelMediator implements IKernelMediator {
     @inject(INJECTOR) private _injector: IInjector
   ) {}
 
-  public create(modules: IKernelModule[]): IInversifyKernelFacade {
+  public create(modules: interfaces.KernelModule[]): IInversifyKernelFacade {
     const userModules = this._injector.userModules;
 
     return this._kernelFactory.create(modules, userModules);

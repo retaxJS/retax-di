@@ -25,7 +25,7 @@ describe('Injector', () => {
     expect(injector.userModules.length).toEqual(1);
     expect(firstModule.serviceId).toEqual(serviceId);
 
-    kernel.load(firstModule.kernelModuleLoader);
+    kernel.load(firstModule.kernelModule);
 
     const service = kernel.get<Service>(serviceId);
 
@@ -40,8 +40,8 @@ describe('Injector', () => {
     const serviceId = injector.registerService(Service);
     const [firstModule] = injector.userModules;
 
-    kernel.load(firstModule.kernelModuleLoader);
-    kernel.load(firstModule.kernelModuleUnloader);
+    kernel.load(firstModule.kernelModule);
+    kernel.unload(firstModule.kernelModule);
 
     expect(() => kernel.get(serviceId)).toThrow();
   });
@@ -60,7 +60,7 @@ describe('Injector', () => {
     const serviceId = injector.registerService([Service, Service]);
     const [firstModule] = injector.userModules;
 
-    kernel.load(firstModule.kernelModuleLoader);
+    kernel.load(firstModule.kernelModule);
 
     const services = kernel.getAll<Service[]>(serviceId);
 
@@ -76,7 +76,7 @@ describe('Injector', () => {
     const serviceId = injector.registerService(undefined);
     const [firstModule] = injector.userModules;
 
-    kernel.load(firstModule.kernelModuleLoader);
+    kernel.load(firstModule.kernelModule);
 
     const service = kernel.get<Service>(serviceId);
     expect(service).toEqual(undefined);
@@ -89,7 +89,7 @@ describe('Injector', () => {
     const serviceId = injector.registerService([]);
     const [firstModule] = injector.userModules;
 
-    kernel.load(firstModule.kernelModuleLoader);
+    kernel.load(firstModule.kernelModule);
 
     const service = kernel.get<Service>(serviceId);
     expect(service).toEqual(undefined);

@@ -1,4 +1,4 @@
-import { IKernel, IFactory } from 'inversify';
+import { interfaces, KernelModule } from 'inversify';
 
 import { InversifyKernelFacade } from 'retax-core/lib/inversifyKernelFacade';
 import { INVERSIFY_KERNEL_FACADE } from 'retax-core/lib/inversify/identifiers';
@@ -17,11 +17,12 @@ import {
   KERNEL_MEDIATOR,
 } from '../identifiers';
 
-export default function diModule(kernel: IKernel): void {
-  kernel.bind<IInversifyKernelFacade>(INVERSIFY_KERNEL_FACADE).to(InversifyKernelFacade);
-  kernel.bind<IKernelFactory>(KERNEL_FACTORY).to(KernelFactory).inSingletonScope();
-  kernel.bind<IKernelMediator>(KERNEL_MEDIATOR).to(KernelMediator).inSingletonScope();
-  kernel.bind<IInjector>(INJECTOR).to(Injector).inSingletonScope();
+export default new KernelModule((bind: interfaces.Bind) => {
+  bind<IInversifyKernelFacade>(INVERSIFY_KERNEL_FACADE).to(InversifyKernelFacade);
+  bind<IKernelFactory>(KERNEL_FACTORY).to(KernelFactory).inSingletonScope();
+  bind<IKernelMediator>(KERNEL_MEDIATOR).to(KernelMediator).inSingletonScope();
+  bind<IInjector>(INJECTOR).to(Injector).inSingletonScope();
 
-  kernel.bind<IFactory<IInversifyKernelFacade>>(INVERSIFY_KERNEL_FACADE_FACTORY).toAutoFactory(INVERSIFY_KERNEL_FACADE);
-}
+  bind<interfaces.Factory<IInversifyKernelFacade>>(INVERSIFY_KERNEL_FACADE_FACTORY).toAutoFactory(INVERSIFY_KERNEL_FACADE);
+});
+
